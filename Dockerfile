@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     openssl \
     libssl-dev \
     libevent-dev \
+    libc6-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Sao chép mã nguồn
