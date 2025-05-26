@@ -14,9 +14,9 @@ RUN apt-get update && apt-get install -y \
 COPY . /app
 WORKDIR /app
 
-# Làm sạch và biên dịch với tùy chọn tránh xung đột
+# Làm sạch và biên dịch với tùy chọn bổ sung cho PCLMUL và SSE2
 RUN make clean && \
-    make CFLAGS="-fPIC" LDFLAGS="-shared" && \
+    make CFLAGS="-fPIC -mpclmul -msse2 -O2" LDFLAGS="-shared" && \
     strip mtproto-proxy
 
 # Cài đặt biến môi trường từ Railway
