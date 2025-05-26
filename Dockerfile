@@ -7,14 +7,17 @@ RUN apt-get update && apt-get install -y \
     git \
     openssl \
     libssl-dev \
+    libevent-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Sao chép mã nguồn
 COPY . /app
 WORKDIR /app
 
-# Biên dịch MTProxy
-RUN make
+# Làm sạch và biên dịch với tùy chọn tránh xung đột
+RUN make clean && \
+    make CFLAGS="-fPIC" LDFLAGS="-shared" && \
+    strip mtproto-proxy
 
 # Cài đặt biến môi trường từ Railway
 ENV PORT=${PORT:-8888}
